@@ -72,8 +72,33 @@ int newPatients::queueSize()
     return size;
 }
 
+int newPatients::emergencyPatientsNo()
+{
+    int count = 0;
+    patient *p = front;
+
+    while (p)
+    {
+        if (p->emergency)
+            count++;
+
+        p = p->next;
+    }
+
+    return count;
+}
+
 // Is the queue empty or not?
 bool newPatients::queueIsEmpty()
 {
     return size == 0;
+}
+
+void newPatients::status()
+{
+    cout << "----------------------------------------------------------------" << endl;
+    cout << "No. of patients in the queue is " << queueSize() << " ." << endl;
+    cout << "No. of emergency patients is " << emergencyPatientsNo() << " ." << endl;
+    cout << "No. of regular patients is " << queueSize() - emergencyPatientsNo() << " ." << endl;
+    cout << "----------------------------------------------------------------" << endl;
 }

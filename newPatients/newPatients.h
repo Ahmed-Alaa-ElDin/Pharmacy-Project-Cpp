@@ -5,7 +5,7 @@ private:
     {
     public:
         int items;
-        int type;
+        int type; // 0 => cash , 1 => insurance
         bool emergency;
         patient *next;
     };
@@ -19,5 +19,7 @@ public:
     void distribute(int &, int &, bool &);   // Distribute The First Patient
     void firstPatient(int &, int &, bool &); // Get the data of the first Patient
     int queueSize();                         // Get the size of the queue
+    int emergencyPatientsNo();               // Get the number of emergency patients
     bool queueIsEmpty();                     // Is the queue empty or not?
+    void status();                           // Prints the status of the new Patients queue
 };

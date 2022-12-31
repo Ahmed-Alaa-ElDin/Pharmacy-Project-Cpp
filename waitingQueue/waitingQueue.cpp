@@ -13,12 +13,11 @@ waitingQueue::waitingQueue(int l_id)
 }
 
 // New Patient Entered the queue
-void waitingQueue::entrance(int it, bool em)
+void waitingQueue::entrance(int it)
 {
     patient *newNode = new patient;
     newNode->ID = lastID;
     newNode->items = it;
-    newNode->emergency = em;
     newNode->next = NULL;
 
     if (queueIsEmpty())
@@ -34,12 +33,11 @@ void waitingQueue::entrance(int it, bool em)
 }
 
 // New urgent Patient Entered the queue
-void waitingQueue::entranceEmergency(int it, bool em)
+void waitingQueue::entranceEmergency(int it)
 {
     patient *newNode = new patient;
     newNode->ID = lastID;
     newNode->items = it;
-    newNode->emergency = em;
     newNode->next = NULL;
 
     if (queueIsEmpty())
@@ -61,7 +59,7 @@ void waitingQueue::entranceEmergency(int it, bool em)
 }
 
 // Distribute The First Patient
-void waitingQueue::serve(int &id, int &it, bool &em)
+void waitingQueue::serve(int &id, int &it)
 {
     if (!queueIsEmpty())
     {
@@ -71,7 +69,6 @@ void waitingQueue::serve(int &id, int &it, bool &em)
 
         id = front->ID;
         it = front->items;
-        em = front->emergency;
 
         if (size == 1)
         {
@@ -89,11 +86,10 @@ void waitingQueue::serve(int &id, int &it, bool &em)
 }
 
 // Get the data of the first Patient
-void waitingQueue::firstPatient(int &id, int &it, bool &em)
+void waitingQueue::firstPatient(int &id, int &it)
 {
     id = front->ID;
     it = front->items;
-    em = front->emergency;
 }
 
 // Get the size of the queue

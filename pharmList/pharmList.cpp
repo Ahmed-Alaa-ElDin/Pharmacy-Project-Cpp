@@ -114,6 +114,10 @@ void pharmList::status()
         else
             cout << "Pharmacist #" << i + 1 << " is free" << endl;
     }
+    if (available())
+    {
+        cout << "It's the turn of pharmacist #" << oldestFree() + 1 << "." << endl;
+    }
 
     cout << "----------------------------------------------------------------" << endl;
 }
