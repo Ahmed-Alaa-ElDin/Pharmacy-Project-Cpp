@@ -23,6 +23,7 @@ public:
     int getSize() const;
     string getDepartment() const;
     bool available() const;
+    int availableNo() const;
     int oldestFree() const;
     int patientsBeingServed() const;
     void assignPatient(int, int);

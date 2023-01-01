@@ -42,6 +42,19 @@ bool pharmList::available() const
     return false;
 }
 
+int pharmList::availableNo() const
+{
+    int count = 0;
+
+    for (int i = 0; i < size; i++)
+    {
+        if (pharmacists[i]->items <= 0)
+            count++;
+    }
+
+    return count;
+}
+
 int pharmList::oldestFree() const
 {
     if (available())

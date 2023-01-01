@@ -1,11 +1,13 @@
 #include "waitingQueue.h"
 #include <iostream>
+#include <string>
 
 using namespace std;
 
 // constructor of new patients' queue
-waitingQueue::waitingQueue(int l_id)
+waitingQueue::waitingQueue(int l_id, string dep)
 {
+    department = dep;
     front = rear = NULL;
     size = 0;
     lastID = l_id;
@@ -56,6 +58,7 @@ void waitingQueue::entranceEmergency(int it)
             newNode->next = temp->next;
         temp->next = newNode;
     }
+    emergencyNo++;
 }
 
 // Distribute The First Patient
@@ -73,15 +76,17 @@ void waitingQueue::serve(int &id, int &it)
         if (size == 1)
         {
             front = rear = NULL;
-            delete (deleteNode);
+            delete deleteNode;
         }
         else
         {
             front = front->next;
-            delete (deleteNode);
+            delete deleteNode;
         }
 
         size--;
+        if (emergencyNo)
+            emergencyNo--;
     }
 }
 
@@ -114,4 +119,23 @@ int waitingQueue::getLastID()
 int waitingQueue::getEmergencyNo()
 {
     return emergencyNo;
+}
+
+void waitingQueue::status()
+{
+    patient *p = front;
+
+    cout << "----------------------------------------------------------------" << endl;
+    cout << "Status of " << department << " Waiting Queue" << endl;
+    cout << "No. of waiting patients => " << size << endl;
+    cout << "No. of urgent patients in waiting queue => " << getEmergencyNo() << endl;
+    while (p)
+    {
+        if (p->items > 1)
+            cout << "Patient #" << p->ID << " holding prescription contains " << p->items << " items" << endl;
+        else if (p->items > 0)
+            cout << "Patient #" << p->ID << " holding prescription contains one item" << endl;
+        p = p->next;
+    }
+    cout << "----------------------------------------------------------------" << endl;
 }

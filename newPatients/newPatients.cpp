@@ -46,12 +46,12 @@ void newPatients::distribute(int &t, int &it, bool &em)
         if (size == 1)
         {
             front = rear = NULL;
-            delete (deleteNode);
+            delete deleteNode;
         }
         else
         {
             front = front->next;
-            delete (deleteNode);
+            delete deleteNode;
         }
 
         size--;

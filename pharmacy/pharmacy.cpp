@@ -11,6 +11,7 @@ pharmacy::pharmacy()
     int cashNo, cashRate, insuranceNo, insuranceRate;
     int newPatientsNo;
     int items, type;
+    int available;
     bool emergency;
 
     cout << "Kindly enter the number of pharmacists in 'cash department' ";
@@ -24,8 +25,10 @@ pharmacy::pharmacy()
     cin >> insuranceRate;
 
     newPatients newPatientsQueue;
-    waitingQueue cashQueue(1000), insuranceQueue(2000);
+    waitingQueue cashQueue(1000, "Cash"), insuranceQueue(2000, "Insurance");
     pharmList cash("Cash", (int)cashNo, (int)cashRate), insurance("Insurance", (int)insuranceNo, (int)insuranceRate);
+    
+    cout << "The Pharmacy is opened -- Welcome";
 
     while (true)
     {
@@ -50,34 +53,57 @@ pharmacy::pharmacy()
         {
             newPatientsQueue.distribute(type, items, emergency);
 
-            if (type == 0) {
-                if (emergency == 0) {
+            if (type == 0)
+            {
+                if (emergency == 0)
+                {
                     cashQueue.entrance(items);
-                } else {
+                }
+                else
+                {
                     cashQueue.entranceEmergency(items);
                 }
-            } else {
-                if (emergency == 0) {
+            }
+            else
+            {
+                if (emergency == 0)
+                {
                     insuranceQueue.entrance(items);
-                } else {
+                }
+                else
+                {
                     insuranceQueue.entranceEmergency(items);
                 }
             }
         }
+
+        cashQueue.status();
+        insuranceQueue.status();
+
+        // Cash Department 
+        available = cash.availableNo();
+        for (int i = 0; i < available; i++)
+        {
+            cashQueue.serve(ID,items);
+
+            cash.assignPatient(ID,items);
+        }
+
+        cash.status();
+
+        // Insurance Department
+        available = insurance.availableNo();
+
+        for (int i = 0; i < available; i++)
+        {
+            insuranceQueue.serve(ID,items);
+
+            insurance.assignPatient(ID,items);
+        }
         
+        insurance.status();
 
-
-            // if (type == 0)
-            // {
-            // }
-            // else if (type == 1)
-            // {
-            // }
-            // else
-            // {
-            //     cout << "Invalid type" << endl;
-            // }
-
-        break;
+        cash.dispense();
+        insurance.dispense();
     }
 }
